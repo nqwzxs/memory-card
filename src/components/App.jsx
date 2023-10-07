@@ -8,11 +8,13 @@ import CardGroup from './CardGroup'
 
 const TOTAL_POKEMONS = 809
 const INITIAL_CARD_AMOUNT = 4
+const INCREMENT_AMOUNT = 2
 
 function App() {
   const [currentScore, setCurrentScore] = useState(0)
   const [bestScore, setBestScore] = useState(0)
   const [pokemons, setPokemons] = useState([])
+  const [clickedPokemons, setClickedPokemons] = useState([])
 
   useEffect(() => {
     getRandomPokemons(INITIAL_CARD_AMOUNT)
@@ -23,6 +25,44 @@ function App() {
     setCurrentScore(incrementedScore)
     const newBestScore = Math.max(incrementedScore, bestScore)
     setBestScore(newBestScore)
+  }
+
+  function resetGame() {
+    getRandomPokemons(INITIAL_CARD_AMOUNT)
+    setClickedPokemons([])
+    setCurrentScore(0)
+  }
+
+  const handleCardClick = (pokemon) => {
+    if (clickedPokemons.includes(pokemon)) {
+      resetGame()
+      return
+    }
+
+    const newClickedPokemons = [...clickedPokemons, pokemon]
+
+    setClickedPokemons([...clickedPokemons, pokemon])
+    incrementScore()
+
+    if (newClickedPokemons.length === pokemons.length) {
+      getRandomPokemons(pokemons.length + INCREMENT_AMOUNT)
+      setClickedPokemons([])
+      return
+    }
+    shufflePokemons()
+  }
+
+  function shufflePokemons() {
+    const shuffledPokemons = []
+
+    while (shuffledPokemons.length !== pokemons.length) {
+      const randomIndex = Math.floor(Math.random() * pokemons.length)
+      const randomPokemon = pokemons[randomIndex]
+      if (shuffledPokemons.includes(randomPokemon)) continue
+      shuffledPokemons.push(randomPokemon)
+    }
+
+    setPokemons(shuffledPokemons)
   }
 
   async function getPokemon(id) {
@@ -51,7 +91,7 @@ function App() {
     <>
       <Header />
       <Scoreboard currentScore={currentScore} bestScore={bestScore} />
-      <CardGroup pokemons={pokemons} />
+      <CardGroup pokemons={pokemons} handleCardClick={handleCardClick} />
     </>
   )
 }
