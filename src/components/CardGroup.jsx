@@ -1,3 +1,5 @@
+import '../styles/CardGroup.css'
+
 import Card from './Card'
 
 function CardGroup({ pokemons, handleCardClick }) {

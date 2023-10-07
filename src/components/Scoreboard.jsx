@@ -1,3 +1,5 @@
+import '../styles/Scoreboard.css'
+
 function Scoreboard({ currentScore, bestScore }) {
   return (
     <div className="scoreboard">
