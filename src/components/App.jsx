@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import '../styles/App.css'
 
-import Header from './Header'
+import Heading from './Heading'
 import Scoreboard from './Scoreboard'
 import CardGroup from './CardGroup'
 
@@ -89,7 +89,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Heading />
       <Scoreboard currentScore={currentScore} bestScore={bestScore} />
       <CardGroup pokemons={pokemons} handleCardClick={handleCardClick} />
     </>
