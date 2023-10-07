@@ -9,6 +9,7 @@ import CardGroup from './CardGroup'
 function App() {
   const [currentScore, setCurrentScore] = useState(0)
   const [bestScore, setBestScore] = useState(0)
+  const [pokemons, setPokemons] = useState([])
 
   function incrementScore() {
     const incrementedScore = currentScore + 1
@@ -21,7 +22,7 @@ function App() {
     <>
       <Header />
       <Scoreboard currentScore={currentScore} bestScore={bestScore} />
-      <CardGroup />
+      <CardGroup pokemons={pokemons} />
     </>
   )
 }
